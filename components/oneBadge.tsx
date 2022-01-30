@@ -9,7 +9,7 @@ export const OneBadge = ({
     fieldName,
     setItem
      } : {
-   item: FeedTag | BundleTag |FeedObject
+   item: FeedTag | BundleTag | FeedObject
    action: ActionType;
    currentItem?: FeedObject | BundleObject
    fieldName: BadgeFieldName;
