@@ -3,8 +3,5 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/api/graphql": "pages/api/graphql.js",
-  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js",
-  "/": "pages/index.js",
-  "/bundles": "pages/bundles.js",
-  "/api/me": "pages/api/me.js"
+  "/bundles": "pages/bundles.js"
 }
