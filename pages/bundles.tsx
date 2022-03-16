@@ -10,7 +10,7 @@ import { NewEditItem } from '../components/newEditItem';
 
 
 const BundlesPage = () => {
-    const { user, loading } = useFetchUser();
+    const { user } = useFetchUser();
     const initialSelected: SelectedFeedState = {
         id: null,
         feeds: [],
@@ -27,7 +27,6 @@ const BundlesPage = () => {
                 Bundles Page
                 </h3>
                 {user ? (
-
                     <div
                     onClick={(e) => {
                       e.persist();
@@ -61,21 +60,20 @@ const BundlesPage = () => {
                     </div>
                 ) : null }
                 </div>
-                <>
                 {( selected.editMode || selected.newMode) && user ? (
                      <NewEditItem
-                      type={ItemType.BundleType}
+                        type={ItemType.BundleType}
+                        selected={selected}
+                        setSelected={setSelected}
                       /> ) : null }
-                </>
-                 
                 
-            <ItemList
-             type={ItemType.BundleType}
-             useSelected={true}
-             allowEdits={true}
-             selected={selected}
-             setSelected={setSelected}
-            />
+                      <ItemList
+                        type={ItemType.BundleType}
+                        useSelected={true}
+                        allowEdits={true}
+                        selected={selected}
+                        setSelected={setSelected}
+                      />
         </Layout>
     )
 }

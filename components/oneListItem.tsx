@@ -3,7 +3,7 @@ import React, { Dispatch, SetStateAction } from "react";
 import { ActionType, BadgeFieldName, BundleObject, FeedObject, ItemType, SelectedFeedState } from "../utils/types"
 import { BadgeList } from './badgeList';
 import { ProfilePic } from './profilePic';
-import { DoubleArrowDown, DoubleArrowRight, Question } from "./svg";
+import { DoubleArrowDown, DoubleArrowRight } from "./svg";
 export const OneListItem = ({
     item,
     type,
