@@ -20,9 +20,9 @@ const FeedsPage = () => {
     return (
         <Layout>
             <div className="grid grid-cols-2">
-                <h3s className="grid-cols-1 justify-start flex text-lr font-medium py-4">
+                <h3 className="grid-cols-1 justify-start flex text-lr font-medium py-4">
                 Feeds Page
-                </h3s>
+                </h3>
                 {user ? (
                     <div
                     onClick={(e) => {
@@ -56,7 +56,7 @@ const FeedsPage = () => {
                     </div>
                     ) : null }
                     </div>
-            {( selected.editMode || selected.newMode) && user ?  <NewEditItem type={ItemType.FeedType} />  : null}
+            {( selected.editMode || selected.newMode) && user ?  <NewEditItem type={ItemType.FeedType} selected={selected} setSelected={setSelected} />  : null}
             <ItemList type={ItemType.FeedType} useSelected={true} allowEdits={true} selected={selected} setSelected={setSelected}/>
         </Layout>
     )

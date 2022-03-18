@@ -7,11 +7,13 @@ export const BadgeList = ({
     action,
     item,
     setItem,
+    setSearch,
 } : {
     fieldName: BadgeFieldName;
     action: ActionType;
     item: FeedObject | BundleObject;
     setItem?: Dispatch<SetStateAction<FeedObject | BundleObject>>;
+    setSearch?: Dispatch<SetStateAction<String>>;
 
 }) => {
     return item[fieldName] && item[fieldName].length > 0 ? (

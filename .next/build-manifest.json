@@ -28,11 +28,6 @@
       "static/chunks/webpack.js",
       "static/chunks/main.js",
       "static/chunks/pages/bundles.js"
-    ],
-    "/feeds": [
-      "static/chunks/webpack.js",
-      "static/chunks/main.js",
-      "static/chunks/pages/feeds.js"
     ]
   },
   "ampFirstPages": []
