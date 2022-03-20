@@ -63,6 +63,15 @@ export const NewEditItem = ({
           e.preventDefault();
           const data = prepareNewUpdateObj(currentItem);
           console.log(data);
+          createItemMutation({
+            variables: { data },
+          });
+          setItem(initialState);
+          setSelected((currState) => ({
+            ...currState,
+            editMode: false,
+            newMode: false,
+          }));
         }}
       >
         <div className='grid grid-cols-12 gap-4 rounded-md border-4 my-4 py-2 px-4'>
@@ -132,7 +141,7 @@ export const NewEditItem = ({
               )}
             </div>
           </div>
-          <div className={`py-4 ${isFeed ? null : 'pt-28'}`}>
+          <div className={`py-4 ${isFeed ? null : 'pt-1'}`}>
             <input
               className={`py-4 ${`bg-${
                 isFeed ? 'green' : 'purple'

@@ -9,7 +9,7 @@ import {
   SearchQueryName,
 } from '../utils/types';
 import { BadgeList } from './badgeList';
-import { Search, Spin } from './svg';
+// import { Search, Spin } from './svg';
 import * as _ from 'lodash';
 
 export const SearchItems = ({
@@ -53,15 +53,15 @@ export const SearchItems = ({
 
   const dummyNewItem = {
     ...currentItem,
-    [fieldName]: filtFindItems,
+    [fieldName]: filtFindItemsWithAdd,
   };
 
   return (
     <div>
-      <div className=''>
+      <div className='flex'>
         {loading ? (
           <svg
-            className='w-8 h-8'
+            className='h-6 w-6 text-gray-500 animate-spin'
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
             viewBox='0 0 24 24'
@@ -76,7 +76,7 @@ export const SearchItems = ({
           </svg>
         ) : (
           <svg
-            className='w-8 h-8 mb-10'
+            className='mt-3 mr-2 w-6 h-6 text-gray-500'
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
             viewBox='0 0 24 24'

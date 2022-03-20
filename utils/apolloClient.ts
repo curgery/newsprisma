@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client'
 import getConfig from 'next/config'
 const {publicRuntimeConfig} = getConfig()
-const {BACKEND_URL} = publicRuntimeConfig
+const { BACKEND_URL } = publicRuntimeConfig
 
 let apolloClient
 

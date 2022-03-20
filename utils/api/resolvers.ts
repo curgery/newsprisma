@@ -129,15 +129,14 @@ export const resolvers = {
       await verifyOwnership(bundle, user);
       return prisma.bundle.update({ where: { id }, data: { ...bundleUpdate } });
     },
-    createSavedArticle: async (parent, { data }, { prisma, user }: Context) => {
-        const author = {author: {connect: {id: user.id}}};
-        return prisma.savedArticle.create({
+    createSavedArticle: async (parent, { data }, { prisma, user }: Context) => 
+        prisma.savedArticle.create({
         data: {
           ...data,
           id: `${user.id}-${data.url}`,
           author: { connect: { id: user.id } },
-        },},
-      )},
+        },
+        }),
     deleteBundle: async (
       parent,
       { data: { id } },

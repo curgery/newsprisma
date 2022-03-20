@@ -25,9 +25,9 @@ const genNestedItems = (currentItem) => {
          }
        : {};
 
-       const { __typename, likes, author, bundles, ...cleanedItem } = currentItem;
+       const { __typename, likes, author, bundles, ...cleanedItem } = currentItem;  //strip unwanted from currentItem and call it 'cleanedItem' 'CleanedItem' will be all of the fields that are leftover.
 
-       return { ...cleanedItem, ...tags, ...feeds };
+       return { ...cleanedItem, ...tags, ...feeds };  //add all tag and feed info to cleanedItem.
 
 
 }
@@ -36,5 +36,6 @@ const genNestedItems = (currentItem) => {
 export const prepareNewUpdateObj = (currentItem) => {
    const currentData =  genNestedItems(currentItem)
 
-   return { ...currentData,  id: uuidv4() } 
+   return { ...currentData,  id: uuidv4() // currentData (feed or tag) is returned WITHOUT an id number; thus one is provided.
+   } 
 }

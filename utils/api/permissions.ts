@@ -7,8 +7,28 @@ const rules = {
         return _.isEmpty(context.user) ? false : true
     })
 }
+
 export const permissions = shield({
     Query: {
-        // hello: rules.isAuthenticated
-    }
-})
+      savedArticle: rules.isAuthenticated,
+      savedArticles: rules.isAuthenticated,
+    },
+    Mutation: {
+      createFeed: rules.isAuthenticated,
+      createBundle: rules.isAuthenticated,
+      likeFeed: rules.isAuthenticated,
+      updateFeed: rules.isAuthenticated,
+      updateBundle: rules.isAuthenticated,
+      createSavedArticle: rules.isAuthenticated,
+      deleteBundle: rules.isAuthenticated,
+      deleteFeed: rules.isAuthenticated,
+      deleteSavedArticle: rules.isAuthenticated,
+    },
+  });
+
+
+// export const permissions = shield({
+//     Query: {
+//         // hello: rules.isAuthenticated
+//     }
+// })
