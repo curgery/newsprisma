@@ -1,4 +1,5 @@
 import { useState } from 'react';
+// import { GenerateArticleList } from '../components/generateArticleList';
 import { Layout } from '../components/layout';
 import { ItemList } from '../components/itemList';
 import { ItemType, SelectedFeedState } from '../utils/types';
@@ -10,7 +11,7 @@ const IndexPage = () => {
     newMode: false,
   };
 
-  const [ selected, setSelected ] = useState(initialSelected) 
+  const [selected, setSelected] = useState(initialSelected);
 
   return (
     <Layout>
@@ -22,8 +23,8 @@ const IndexPage = () => {
         setSelected={setSelected}
         useSelected={true}
         type={ItemType.BundleType}
-        allowEdits
-        />
+        allowEdits={true}
+      />
     </Layout>
   );
 };

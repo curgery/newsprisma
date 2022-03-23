@@ -3,6 +3,8 @@ import React, { Dispatch, SetStateAction, useState } from 'react';
 import {
   CREATE_BUNDLE_MUTATION,
   CREATE_FEED_MUTATION,
+  UPDATE_BUNDLE_MUTATION,
+  UPDATE_FEED_MUTATION,
 } from '../utils/api/graphql/mutations';
 import {
   FIND_BUNDLE_TAGS_QUERY,

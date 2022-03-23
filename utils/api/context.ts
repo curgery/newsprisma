@@ -1,6 +1,5 @@
 import {PrismaClient, User} from '@prisma/client'
 import { getSession } from '@auth0/nextjs-auth0';
-import auth0 from '../auth0';
 import {v4 as uuidv4} from 'uuid';
 
 let prisma: PrismaClient

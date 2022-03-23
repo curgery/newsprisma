@@ -1,20 +1,11 @@
 import { useMemo } from 'react'
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client'
 import getConfig from 'next/config'
+
 const {publicRuntimeConfig} = getConfig()
 const { BACKEND_URL } = publicRuntimeConfig
 
-let apolloClient
-
-// const customFetch = (uri, options) => {
-//   return fetch(uri, options)
-//   .then(response => {
-//     if (response.status >= 500) {  // or handle 400 errors
-//       return Promise.reject(response.status);
-//     }
-//     return response;
-//   });
-// };
+let apolloClient;
 
 
 function createApolloClient() {
@@ -26,6 +17,9 @@ function createApolloClient() {
       credentials: 'same-origin', // Additional fetch() options like `credentials` or `headers`
     }),
     cache: new InMemoryCache({}),
+    // defaultOptions: {
+    //   mutate: {errorPolicy: 'ignore'}
+    // }
   })
 }
 
@@ -55,3 +49,19 @@ export function useApollo(initialState) {
   const store = useMemo(() => initializeApollo(initialState), [initialState])
   return store
 }
+
+
+
+
+
+
+
+// const customFetch = (uri, options) => {
+//   return fetch(uri, options)
+//   .then(response => {
+//     if (response.status >= 500) {  // or handle 400 errors
+//       return Promise.reject(response.status);
+//     }
+//     return response;
+//   });
+// };
