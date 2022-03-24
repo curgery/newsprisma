@@ -1,6 +1,8 @@
 import { useMemo } from 'react'
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client'
 import getConfig from 'next/config'
+import merge from 'deepmerge'
+
 
 const {publicRuntimeConfig} = getConfig()
 const { BACKEND_URL } = publicRuntimeConfig
@@ -33,6 +35,11 @@ export function initializeApollo(initialState = null) {
     const existingCache = _apolloClient.extract()
 
 
+    // // Merge the existing cache into data passed from getStaticProps/getServerSideProps
+    // const data = merge(initialState, existingCache)
+
+    // // Restore the cache with the merged data
+    // _apolloClient.cache.restore(data)
     // Restore the cache with the merged data
     _apolloClient.cache.restore({...existingCache, ...initialState})
   }

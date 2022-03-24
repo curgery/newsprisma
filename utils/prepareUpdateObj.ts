@@ -1,4 +1,5 @@
 import {v4 as uuidv4} from 'uuid';
+import * as _ from 'lodash'
 
 
 const genNestedItems = (currentItem) => {
@@ -36,6 +37,6 @@ const genNestedItems = (currentItem) => {
 export const prepareNewUpdateObj = (currentItem) => {
    const currentData =  genNestedItems(currentItem)
 
-   return { ...currentData,  id: uuidv4() // currentData (feed or tag) is returned WITHOUT an id number; thus one is provided.
+   return { ...currentData,  id: uuidv4() // currentData (feed or tag) is returned WITHOUT an id number; thus one is added/provided.
    } 
 }

@@ -10,7 +10,7 @@ import {context} from '../../utils/api/context'
 
 const cors = Cors();
 
-const schema = applyMiddleware(makeExecutableSchema({typeDefs, resolvers}), log, permissions)
+const schema = applyMiddleware(makeExecutableSchema({typeDefs, resolvers}), log, )
 
 export const config = {
   api: {
