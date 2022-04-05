@@ -5,7 +5,7 @@ import {typeDefs} from '../../utils/api/typeDefs'
 import {resolvers} from '../../utils/api/resolvers'
 import {applyMiddleware} from 'graphql-middleware'
 import {log} from '../../utils/api/log'
-import {permissions} from '../../utils/api/permissions'
+// import {permissions} from '../../utils/api/permissions'
 import {context} from '../../utils/api/context'
 
 const cors = Cors();

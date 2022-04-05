@@ -1,4 +1,4 @@
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import {
   CREATE_BUNDLE_MUTATION,
@@ -10,7 +10,9 @@ import {
   FIND_BUNDLE_TAGS_QUERY,
   FIND_FEEDS_QUERY,
   FIND_FEED_TAGS_QUERY,
+  ME_QUERY,
 } from '../utils/api/graphql/queries';
+import { optimisticCache } from '../utils/optimisticCache';
 import { prepareNewUpdateObj } from '../utils/prepareUpdateObj';
 import {
   ActionType,
@@ -22,6 +24,7 @@ import {
   SearchQueryName,
   SelectedFeedState,
 } from '../utils/types';
+import { updateCache } from '../utils/update';
 import { BadgeList } from './badgeList';
 import { GenerateInputField } from './generateInputField';
 import { SearchItems } from './searchItems';
@@ -50,6 +53,7 @@ export const NewEditItem = ({
 
   const [createItemMutation, { loading: createLoading, error: createError }] =
     useMutation(isFeed ? CREATE_FEED_MUTATION : CREATE_BUNDLE_MUTATION);
+  const { data: meData, loading: meLoading, error: meErr } = useQuery(ME_QUERY);
 
   if (createLoading) {
     return <WaitingClock className='my-20 h-10 w-10 text-gray-500 m-auto' />;
@@ -67,6 +71,14 @@ export const NewEditItem = ({
           console.log(data);
           createItemMutation({
             variables: { data },
+            update: updateCache(isFeed, 'create'),
+            optimisticResponse: optimisticCache(
+              isFeed,
+              'update',
+              data,
+              currentItem,
+              meData
+            ),
           });
           setItem(initialState);
           setSelected((currState) => ({
