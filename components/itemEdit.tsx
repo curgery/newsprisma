@@ -26,7 +26,7 @@ export const ItemEdit = ({
         e.stopPropagation();
         setSelected((currState) => ({
           id: item.id,
-          feeds: isFeed ? [item] : item['feed'],
+          feeds: isFeed ? [item] : item['feeds'],
           editMode:
             !selected.editMode || currState.id !== item.id ? true : false,
           newMode: false,

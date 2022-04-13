@@ -2,8 +2,9 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
+  "/bundle/[id]": "pages/bundle/[id].js",
+  "/feed/[id]": "pages/feed/[id].js",
   "/api/graphql": "pages/api/graphql.js",
-  "/": "pages/index.js",
-  "/api/me": "pages/api/me.js",
-  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js"
+  "/bundles": "pages/bundles.js",
+  "/": "pages/index.js"
 }

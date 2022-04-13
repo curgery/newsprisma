@@ -16,7 +16,7 @@ export const ItemList = ({
   selected,
   setSelected,
   useSelected = false,
-  allowEdits,
+  allowEdits = false,
 }: {
   type: ItemType;
   selected?: SelectedFeedState;
@@ -57,7 +57,7 @@ export const ItemList = ({
     <NotifyLoading />;
   }
 
-  if (error || !ItemList) {
+  if (error || !itemList) {
     return <NotifyError />;
   }
 

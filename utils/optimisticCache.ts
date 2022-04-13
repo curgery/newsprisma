@@ -6,6 +6,7 @@ export const optimisticCache = ( isFeed, action, data, currentItem, meData ) => 
     const __typename =  isFeed ? 'Feed': 'Bundle';
     const id = {data};
     const { me } = meData;
+
     const response = {
         id,
         ...currentItem,
@@ -27,7 +28,7 @@ export const optimisticCache = ( isFeed, action, data, currentItem, meData ) => 
         __typename: 'Mutation',
         [action + __typename]: {
             __typename,
-          ...response  
-    }
+          ...response,  
+    },
     }
 }

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import React, { Dispatch, SetStateAction } from 'react';
+import * as _ from 'lodash';
 import {
   ActionType,
   BadgeFieldName,
@@ -8,19 +9,18 @@ import {
   ItemType,
   SelectedFeedState,
 } from '../utils/types';
-import { useFetchUser } from '../utils/user';
+import { useUser } from '@auth0/nextjs-auth0';
 import { BadgeList } from './badgeList';
 import { ItemEdit } from './itemEdit';
 import { ProfilePic } from './profilePic';
 import { DoubleArrowDown, DoubleArrowRight, WaitingClock } from './svg';
-import * as _ from 'lodash';
 export const OneListItem = ({
   item,
   type,
   selected,
   setSelected,
   useSelected = false,
-  allowEdits,
+  allowEdits = false,
 }: {
   item: FeedObject | BundleObject;
   type: ItemType;
@@ -32,14 +32,14 @@ export const OneListItem = ({
   const isFeed = type === ItemType.FeedType;
   const isSelected = useSelected && selected && selected.id === item.id;
 
-  const { user, loading } = useFetchUser();
+  const { user, error, isLoading } = useUser();
 
-  if (loading) {
+  if (isLoading) {
     return <WaitingClock className='h-10 w-10 text-gray-500 m-auto' />;
   }
 
   const canManipulate =
-    !loading &&
+    !isLoading &&
     user &&
     _.get(item, 'author.autho0') === user.sub &&
     allowEdits &&
@@ -90,7 +90,14 @@ export const OneListItem = ({
           <div className='col-span-6 py-2'>
             <h3>{isFeed ? 'Bundles' : 'Feeds'}</h3>
             <div className='grid grid-cols-3 gap-2'>
-              <p>child items...</p>
+              {/* <p>child items</p> */}
+              <BadgeList
+                fieldName={
+                  isFeed ? BadgeFieldName.bundles : BadgeFieldName.feeds
+                }
+                action={ActionType.NONE}
+                item={item}
+              />
             </div>
           </div>
         </div>

@@ -59,6 +59,7 @@ const BundlesPage = () => {
           </div>
         ) : null}
       </div>
+
       {(selected.editMode || selected.newMode) && user ? (
         <NewEditItem
           type={ItemType.BundleType}

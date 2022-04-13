@@ -1,6 +1,54 @@
 require('dotenv').config();
 
-module.exports = {};
+module.exports = {
+  webpack(config, options) {
+    config.module.rules.push({
+      test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+      use: {
+        loader: 'url-loader',
+        options: {
+          limit: 100000,
+        },
+      },
+    });
+    return config;
+  },
+};
+
+// module.exports = {
+//   webpack(config, options) {
+//     config.module.rules.push({
+//       test: /\.svg$/,
+//       use: ['@svgr/webpack', 'url-loader'],
+//     });
+
+//     return config;
+//   },
+// };
+
+// module.exports = {
+//   // other configs...
+
+//   // future: { webpack5: true }, // -- not needed since Next.js v11.0.0
+//   webpack(config) {
+//     config.module.rules.push({
+//       test: /\.svg$/i,
+//       issuer: { and: [/\.(js|ts|md)x?$/] },
+//       use: [
+//         {
+//           loader: '@svgr/webpack',
+//           options: {
+//             prettier: false,
+//             svgo: true,
+//             svgoConfig: { plugins: [{ removeViewBox: false }] },
+//             titleProp: true,
+//           },
+//         },
+//       ],
+//     });
+//     return config;
+//   },
+// };
 
 // require('dotenv').config();
 

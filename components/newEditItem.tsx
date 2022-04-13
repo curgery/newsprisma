@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@apollo/client';
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import {
   CREATE_BUNDLE_MUTATION,
   CREATE_FEED_MUTATION,
@@ -7,6 +7,8 @@ import {
   UPDATE_FEED_MUTATION,
 } from '../utils/api/graphql/mutations';
 import {
+  BUNDLE_QUERY,
+  FEED_QUERY,
   FIND_BUNDLE_TAGS_QUERY,
   FIND_FEEDS_QUERY,
   FIND_FEED_TAGS_QUERY,
@@ -53,34 +55,82 @@ export const NewEditItem = ({
 
   const [createItemMutation, { loading: createLoading, error: createError }] =
     useMutation(isFeed ? CREATE_FEED_MUTATION : CREATE_BUNDLE_MUTATION);
-  const { data: meData, loading: meLoading, error: meErr } = useQuery(ME_QUERY);
 
-  if (createLoading) {
+  const [updateItemMutation, { loading: updateLoading, error: updateError }] =
+    useMutation(isFeed ? UPDATE_FEED_MUTATION : UPDATE_BUNDLE_MUTATION);
+
+  const variables = { data: { id: selected.id ? selected.id : '' } };
+
+  const {
+    loading: itemQueryLoading,
+    error: itemQueryError,
+    data: itemQueryData,
+  } = useQuery(isFeed ? FEED_QUERY : BUNDLE_QUERY, { variables });
+
+  const {
+    data: meData,
+    loading: meLoading,
+    error: meError,
+  } = useQuery(ME_QUERY);
+
+  const { bundle, feed } = itemQueryData || {};
+  const item = isFeed ? feed : bundle;
+
+  useEffect(() => {
+    (async () => {
+      if (item && selected.editMode) {
+        const { __typename, likes, author, ...cleanedItem } = item;
+        setItem({ ...cleanedItem });
+      } else {
+        setItem(initialState);
+      }
+    })();
+  }, [itemQueryData]);
+
+  if (createLoading || updateLoading || itemQueryLoading || meLoading) {
     return <WaitingClock className='my-20 h-10 w-10 text-gray-500 m-auto' />;
   }
-  if (createError) {
+  if (createError || updateError || itemQueryError || meError) {
     return <ErrorSign className='my-20 h-10 w-10 text-gray-500 m-auto' />;
   }
+
+  console.log(itemQueryData);
 
   return (
     <>
       <form
-        onSubmit={(e) => {
+        onSubmit={async (e) => {
           e.preventDefault();
-          const data = prepareNewUpdateObj(currentItem);
+          const data = prepareNewUpdateObj(
+            item,
+            currentItem,
+            isFeed,
+            selected.editMode
+          );
           console.log(data);
-          createItemMutation({
-            variables: { data },
-            update: updateCache(isFeed, 'create'),
-            optimisticResponse: optimisticCache(
-              isFeed,
-              'update',
-              data,
-              currentItem,
-              meData
-            ),
-          });
-          setItem(initialState);
+          selected.editMode
+            ? updateItemMutation({
+                variables: { data },
+                optimisticResponse: optimisticCache(
+                  isFeed,
+                  'update',
+                  data,
+                  currentItem,
+                  meData
+                ),
+              })
+            : createItemMutation({
+                variables: { data },
+                update: updateCache(isFeed, 'create'),
+                optimisticResponse: optimisticCache(
+                  isFeed,
+                  'create',
+                  data,
+                  currentItem,
+                  meData
+                ),
+              });
+          await setItem(initialState);
           setSelected((currState) => ({
             ...currState,
             editMode: false,
