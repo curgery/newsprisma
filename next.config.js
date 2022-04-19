@@ -1,19 +1,28 @@
 require('dotenv').config();
 
+const { AUTH0_BASE_URL } = process.env;
+
 module.exports = {
-  webpack(config, options) {
-    config.module.rules.push({
-      test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
-      use: {
-        loader: 'url-loader',
-        options: {
-          limit: 100000,
-        },
-      },
-    });
-    return config;
+  publicRuntimeConfig: {
+    BACKEND_URL: `${AUTH0_BASE_URL}/api/graphql`,
+    CORS_URL: `${AUTH0_BASE_URL}/api/cors`,
   },
 };
+
+// module.exports = {
+//   webpack(config, options) {
+//     config.module.rules.push({
+//       test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+//       use: {
+//         loader: 'url-loader',
+//         options: {
+//           limit: 100000,
+//         },
+//       },
+//     });
+//     return config;
+//   },
+// };
 
 // module.exports = {
 //   webpack(config, options) {
